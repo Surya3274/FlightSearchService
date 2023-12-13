@@ -4,6 +4,7 @@ class CityRepository {
     try {
       const cityname = await city.create({ name });
       console.log(cityname);
+      return cityname;
     } catch (err) {
       console.log(err);
     }
@@ -15,17 +16,21 @@ class CityRepository {
           id: cityId,
         },
       });
+      return true;
     } catch (err) {
       console.log(err);
     }
+    
   }
   async getCity(cityId) {
     try {
       const cityname = await city.findByPk(cityId);
       console.log(cityname);
+      return cityname;
     } catch (err) {
       console.log(err);
     }
+    
   }
   async updateCity({ cityId, data }) {
     try {
@@ -38,6 +43,7 @@ class CityRepository {
           },
         }
       );
+      return "updated City";
     } catch (err) {
       console.log(err);
     }
