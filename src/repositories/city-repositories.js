@@ -9,7 +9,7 @@ class CityRepository {
       console.log(err);
     }
   }
-  async deleteCity(cityId ) {
+  async deleteCity(cityId) {
     try {
       await city.destroy({
         where: {
@@ -20,17 +20,14 @@ class CityRepository {
     } catch (err) {
       console.log(err);
     }
-    
   }
   async getCity(cityId) {
     try {
       const cityname = await city.findByPk(cityId);
-      console.log(cityname);
-      return cityname;
+      console.log("City name is",cityname.name);
     } catch (err) {
       console.log(err);
     }
-    
   }
   async updateCity({ cityId, data }) {
     try {

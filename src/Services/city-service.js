@@ -1,6 +1,6 @@
 const { CityRepository } = require("../repositories/index.js");
 
-class cityService {
+class CityService {
   constructor() {
     this.CityRepository = new CityRepository();
   }
