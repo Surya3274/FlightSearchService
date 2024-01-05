@@ -29,15 +29,14 @@ class CityService {
       console("Problem in create get fuction from City Service");
     }
   }
-  async updateCity({ id, data }) {
+  async updateCity(data) {
     try {
-      const updatedcity = await this.CityRepository.updateCityCity({
-        id,
-        data,
-      });
+      const updatedcity = await this.CityRepository.updateCity(data);
       return updatedcity;
     } catch (err) {
       console("Problem in create update fuction from City Service");
     }
   }
 }
+
+module.exports = CityService;

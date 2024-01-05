@@ -25,18 +25,19 @@ class CityRepository {
     try {
       const cityname = await city.findByPk(cityId);
       console.log("City name is",cityname.name);
+      return cityname.name;
     } catch (err) {
       console.log(err);
     }
   }
-  async updateCity({ cityId, data }) {
+  async updateCity(newdata) {
     try {
-      console.log({ data });
+      console.log({ newdata });
       await city.update(
-        { name: data },
+        { name: newdata.data },
         {
           where: {
-            id: cityId,
+            id: newdata.id,
           },
         }
       );
