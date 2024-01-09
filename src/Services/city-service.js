@@ -5,9 +5,11 @@ class CityService {
     this.CityRepository = new CityRepository();
   }
 
-  async createCity({ name }) {
+  async createCity(name) {
+    console.log("Entered city services");
+    console.log(name);
     try {
-      const city = await this.CityRepository.createCity({ name });
+      const city = await this.CityRepository.createCity(name);
       return city;
     } catch (err) {
       console("Problem in create city fuction from City Service");
@@ -24,6 +26,19 @@ class CityService {
   async getCity(id) {
     try {
       const fetchcity = await this.CityRepository.getCity(id);
+      return fetchcity;
+    } catch (err) {
+      console("Problem in create get fuction from City Service");
+    }
+  }
+  async getAllCities(filter) {
+    console.log("In Service layer");
+
+    try {
+      const fetchcity = await this.CityRepository.getAllCity({
+        name: filter.name,
+      });
+      console.log(fetchcity);
       return fetchcity;
     } catch (err) {
       console("Problem in create get fuction from City Service");

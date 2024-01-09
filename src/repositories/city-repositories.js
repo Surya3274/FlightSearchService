@@ -1,8 +1,13 @@
-const { city } = require("../models/index");
+const { City } = require("../models/index");
+const { Op } = require("sequelize");
+
 class CityRepository {
   async createCity({ name }) {
     try {
-      const cityname = await city.create({ name });
+      console.log("Entered city repostory");
+      console.log(name);
+
+      const cityname = await City.create({ name });
       console.log(cityname);
       return cityname;
     } catch (err) {
@@ -11,7 +16,7 @@ class CityRepository {
   }
   async deleteCity(cityId) {
     try {
-      await city.destroy({
+      await City.destroy({
         where: {
           id: cityId,
         },
@@ -23,9 +28,26 @@ class CityRepository {
   }
   async getCity(cityId) {
     try {
-      const cityname = await city.findByPk(cityId);
-      console.log("City name is",cityname.name);
+      const cityname = await City.findByPk(cityId);
+      console.log("City name is", cityname.name);
       return cityname.name;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async getAllCity(filter) {
+    try {
+      if (filter.name) {
+        console.log(filter.name);
+        const cityname = await City.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: filter.name,
+            },
+          },
+        });
+        return cityname;
+      }
     } catch (err) {
       console.log(err);
     }
@@ -33,15 +55,19 @@ class CityRepository {
   async updateCity(newdata) {
     try {
       console.log({ newdata });
-      await city.update(
-        { name: newdata.data },
-        {
-          where: {
-            id: newdata.id,
-          },
-        }
-      );
-      return "updated City";
+      // await city.update(
+      //   { name: newdata.data},
+      //   {
+      //     where: {
+      //       id: newdata.id,
+      //     },
+      //   }
+      // );
+
+      const city = await City.findByPk(newdata.id);
+      city = newdata.data;
+      await city.save();
+      return city;
     } catch (err) {
       console.log(err);
     }
