@@ -28,7 +28,7 @@ class CityRepository {
   }
   async getCity(cityId) {
     try {
-      const cityname = await City.findByPk(cityId);
+      const cityname = await 
       console.log("City name is", cityname.name);
       return cityname.name;
     } catch (err) {

@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       boardingDate: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "Current",
       },
       totalseats: {
         type: DataTypes.INTEGER,
