@@ -6,7 +6,18 @@ const create = async (req, res) => {
   console.log("Entered Flights Controller");
   console.log(req.body);
   try {
-    const createflight = await flightService.createflightService(req.body);
+    const flightRequestData = {
+      flightNumber: req.body.flightNumber,
+      airplaneId: req.body.airplaneId,
+      departureAirportId: req.body.departureAirportId,
+      arrivalAirportId: req.body.arrivalAirportId,
+      arrivalTime: req.body.arrivalTime,
+      departureTime: req.body.departureTime,
+      price: req.body.price,
+    };
+    const createflight = await flightService.createflightService(
+      flightRequestData
+    );
     console.log(createflight);
     return res.status(201).json({
       data: createflight,
