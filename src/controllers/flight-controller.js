@@ -1,5 +1,5 @@
 const { FlightService } = require("../Services/flight-service");
-
+const { SuccessCodes, ServerErrorCodes } = require("../utils/error-codes");
 const flightService = new FlightService();
 
 const create = async (req, res) => {
@@ -19,7 +19,7 @@ const create = async (req, res) => {
       flightRequestData
     );
     console.log(createflight);
-    return res.status(201).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: createflight,
       sucess: true,
       message: "Created flight successfully from Controller",
@@ -27,7 +27,7 @@ const create = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in creating Flight from Controller",
@@ -39,7 +39,7 @@ const getAll = async (req, res) => {
   try {
     console.log(req.query);
     const response = await flightService.getAllFlightData(req.query);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: response,
       success: true,
       err: {},
@@ -47,7 +47,7 @@ const getAll = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       success: false,
       message: "Not able to fetch the flights",
@@ -58,7 +58,7 @@ const getAll = async (req, res) => {
 const get = async (req, res) => {
   try {
     const response = await flightService.getFlight(req.params.id);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: response,
       success: true,
       err: {},
@@ -66,7 +66,7 @@ const get = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       success: false,
       message: "Not able to fetch the flight",
@@ -77,7 +77,7 @@ const get = async (req, res) => {
 const update = async (req, res) => {
   try {
     const response = await flightService.updateFlight(req.params.id, req.body);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: response,
       success: true,
       err: {},
@@ -85,7 +85,7 @@ const update = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       success: false,
       message: "Not able to update the flight",

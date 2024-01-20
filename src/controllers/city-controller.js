@@ -1,5 +1,5 @@
 const { CityService } = require("../Services/city-service");
-
+const { SuccessCodes, ServerErrorCodes } = require("../utils/error-codes");
 const cityService = new CityService();
 
 const create = async (req, res) => {
@@ -8,7 +8,7 @@ const create = async (req, res) => {
   try {
     const createcity = await cityService.createCity(req.body);
     console.log(createcity);
-    return res.status(201).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: createcity,
       sucess: true,
       message: "Created city successfully from Controller",
@@ -16,7 +16,7 @@ const create = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in creating city from Controller",
@@ -28,7 +28,7 @@ const create = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const deletecity = await cityService.deleteCity(req.params.id);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: deletecity,
       sucess: true,
       message: "deleted city successfully from Controller",
@@ -37,7 +37,7 @@ const destroy = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in deleting city from Controller",
@@ -49,7 +49,7 @@ const get = async (req, res) => {
   console.log(req.params.id);
   try {
     const getcity = await cityService.getCity(req.params.id);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: getcity,
       sucess: true,
       message: "fteched city successfully from Controller",
@@ -57,7 +57,7 @@ const get = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in getting city from Controller",
@@ -69,7 +69,7 @@ const update = async (req, res) => {
   try {
     console.log(req.body);
     const updatecity = await cityService.updateCity(req.body);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: updatecity.data,
       sucess: true,
       message: "updated city successfully from Controller",
@@ -77,7 +77,7 @@ const update = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in updateing city from Controller",
@@ -89,14 +89,14 @@ const getAll = async (req, res) => {
   try {
     console.log(req.query);
     const getcities = await cityService.getAllCities(req.query);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: getcities,
       sucess: true,
       message: "fteched All the city successfully from Controller",
       err: {},
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Something worng in getting All cities from Controller",
